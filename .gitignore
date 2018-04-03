@@ -113,3 +113,13 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/c,osx,windows,visualstudiocode
+
+
+*.bin
+*.elf
+*.hex
+*.lss
+*.map
+*.sym
+*.o
+*.d

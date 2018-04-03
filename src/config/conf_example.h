@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Serial USART service configuration.
+ * \brief USART serial example configuration.
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,18 +44,24 @@
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
-#ifndef CONF_USART_SERIAL_H
-#define CONF_USART_SERIAL_H
+#ifndef CONF_EXAMPLE_H_INCLUDED
+#define CONF_EXAMPLE_H_INCLUDED
 
-/** USART Interface */
-#define CONF_UART              USART1
-/** Baudrate setting */
-#define CONF_UART_BAUDRATE     115200
-/** Character length setting */
-#define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
-/** Parity setting */
-#define CONF_UART_PARITY       US_MR_PAR_NO
-/** Stop bits setting */
-#define CONF_UART_STOP_BITS    US_MR_NBSTOP_1_BIT
+#include "conf_board.h"
+#include "conf_clock.h"
 
-#endif/* CONF_USART_SERIAL_H_INCLUDED */
+#define BOARD_ID_USART             USART1
+
+#define BOARD_USART                USART1
+
+#define BOARD_USART_BAUDRATE       115200
+
+#define USART_Handler              USART1_Handler
+
+#define USART_IRQn                 USART1_IRQn
+
+#define PDCA_PID_USART_RX          1
+
+#define PDCA_PID_USART_TX          19
+
+#endif /* CONF_EXAMPLE_H_INCLUDED */

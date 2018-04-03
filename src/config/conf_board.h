@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Board configuration.
+ * \brief  Configuration File for SAM4L8 Xplained Pro Board.
  *
  * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
@@ -48,6 +48,6 @@
 #define CONF_BOARD_H_INCLUDED
 
 /** Enable Com Port. */
-#define CONF_BOARD_UART_CONSOLE
+#define CONF_BOARD_COM_PORT
 
-#endif /* CONF_BOARD_H_INCLUDED */
+#endif  /* CONF_BOARD_H_INCLUDED */

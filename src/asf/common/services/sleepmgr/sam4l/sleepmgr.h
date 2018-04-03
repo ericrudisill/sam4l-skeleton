@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Serial USART service configuration.
+ * \brief Chip-specific sleep manager configuration
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,18 +44,83 @@
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
-#ifndef CONF_USART_SERIAL_H
-#define CONF_USART_SERIAL_H
+#ifndef SAM_SLEEPMGR_INCLUDED
+#define SAM_SLEEPMGR_INCLUDED
 
-/** USART Interface */
-#define CONF_UART              USART1
-/** Baudrate setting */
-#define CONF_UART_BAUDRATE     115200
-/** Character length setting */
-#define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
-/** Parity setting */
-#define CONF_UART_PARITY       US_MR_PAR_NO
-/** Stop bits setting */
-#define CONF_UART_STOP_BITS    US_MR_NBSTOP_1_BIT
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#endif/* CONF_USART_SERIAL_H_INCLUDED */
+#include <compiler.h>
+#include <conf_sleepmgr.h>
+#include <interrupt.h>
+#include "bpm.h"
+
+/**
+ * \weakgroup sleepmgr_group
+ * @{
+ */
+
+enum sleepmgr_mode {
+	/** Active mode. */
+	SLEEPMGR_ACTIVE = 0,
+
+	/**
+	 *  Sleep mode.
+	 *  Potential Wake Up sources: fast startup events and interrupt.
+	 */
+	SLEEPMGR_SLEEP_0,
+	SLEEPMGR_SLEEP_1,
+	SLEEPMGR_SLEEP_2,
+	SLEEPMGR_SLEEP_3,
+
+	/**
+	 *  Wait mode.
+	 *  Potential Wake Up sources: fast startup events
+	 */
+	SLEEPMGR_WAIT,
+
+	/**
+	 *  Retention mode.
+	 *  Potential Wake Up sources: fast startup events
+	 */
+	SLEEPMGR_RET,
+
+	/** Backup mode. Potential Wake Up sources: WKUPs, SM, RTT, RTC. */
+	SLEEPMGR_BACKUP,
+
+	SLEEPMGR_NR_OF_MODES,
+};
+
+/**
+ * \internal
+ * \name Internal arrays
+ * @{
+ */
+#if defined(CONFIG_SLEEPMGR_ENABLE) || defined(__DOXYGEN__)
+/** Sleep mode lock counters */
+extern uint8_t sleepmgr_locks[];
+#endif /* CONFIG_SLEEPMGR_ENABLE */
+/** @} */
+
+static inline void sleepmgr_sleep(const enum sleepmgr_mode sleep_mode)
+{
+	Assert(sleep_mode != SLEEPMGR_ACTIVE);
+#ifdef CONFIG_SLEEPMGR_ENABLE
+	cpu_irq_disable();
+
+	/* Enter the sleep mode. */
+	bpm_sleep(BPM, sleep_mode);
+#else
+	UNUSED(sleep_mode);
+	cpu_irq_enable();
+#endif /* CONFIG_SLEEPMGR_ENABLE */
+}
+
+/** @} */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* SAM_SLEEPMGR_INCLUDED */

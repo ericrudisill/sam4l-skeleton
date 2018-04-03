@@ -55,10 +55,9 @@
 // From module: Common SAM compiler driver
 #include <compiler.h>
 #include <status_codes.h>
-#include <math.h>
 
-#include <delay.h>
-#include <gpio.h>
+// From module: FLASHCALW Controller Software Driver
+#include <flashcalw.h>
 
 // From module: Generic board support
 #include <board.h>
@@ -69,33 +68,42 @@
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
 
-// From module: PIO - Parallel Input/Output Controller
-#include <pio.h>
-
-// From module: PMC - Power Management Controller
-#include <pmc.h>
-#include <sleep.h>
+// From module: PDCA - Peripheral DMA Controller
+#include <pdca.h>
 
 // From module: Part identification macros
 #include <parts.h>
 
+// From module: Power Management
+#include <bpm.h>
+
+// From module: SAM4L startup code
+#include <exceptions.h>
+#include <system_sam4l.h>
+
+// From module: SAM4L8 Xplained Pro LED support enabled
+#include <led.h>
+
+// From module: Sleep manager - SAM4L implementation
+#include <sam4l/sleepmgr.h>
+#include <sleepmgr.h>
+
+// From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>
 
-// From module: System Clock Control - SAM4N implementation
+// From module: System Clock Control - SAM4L implementation
 #include <sysclk.h>
 
+// From module: TC - Timer Counter
+#include <tc.h>
 
-// From module: UART - Univ. Async Rec/Trans
-#include <uart.h>
-
-// From module: USART - Serial interface - SAM implementation for devices with both UART and USART
+// From module: USART - Serial interface- SAM implementation for devices with only USART
 #include <serial.h>
 
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
 
-
-#include <wdt.h>
-#include <pio_handler.h>
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
 
 #endif // ASF_H

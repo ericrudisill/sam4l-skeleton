@@ -45,32 +45,33 @@ OBJ_DIR = obj
 ARCH = cortex-m4
 
 # Target part: none, sam3n4 or sam4l4aa
-PART = sam4sd32c
+PART = sam4lc8c
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.
-TARGET_FLASH = sam4s_quad.elf
-TARGET_SRAM = sam4s_quad.elf
+TARGET_FLASH = sam4l-skeleton-flash.elf
+TARGET_SRAM = sam4l-skeleton-sram.elf
 
 # List of C source files.
 CSRCS = \
-       common/services/clock/sam4l/sysclk.c                 \
-       common/services/delay/sam/cycle_counter.c            \
-       common/services/serial/usart_serial.c                \
-       common/utils/interrupt/interrupt_sam_nvic.c          \
-       common/utils/stdio/read.c                            \
-       common/utils/stdio/write.c                           \
-       ../main.c                                            \
-       sam/boards/sam4l_xplained_pro/init.c                 \
-       sam/drivers/twi/twi.c                                \
-       sam/drivers/pio/pio.c                                \
-       sam/drivers/pio/pio_handler.c                        \
-       sam/drivers/pmc/pmc.c                                \
-       sam/drivers/pmc/sleep.c                              \
-       sam/drivers/wdt/wdt.c                                \
-       sam/drivers/uart/uart.c                              \
-       sam/drivers/usart/usart.c                            \
-       sam/drivers/pwm/pwm.c                                \
+       ../main.c                                          \
+       common/services/clock/sam4l/dfll.c                 \
+       common/services/clock/sam4l/osc.c                  \
+       common/services/clock/sam4l/pll.c                  \
+       common/services/clock/sam4l/sysclk.c               \
+       common/services/serial/usart_serial.c              \
+       common/services/sleepmgr/sam4l/sleepmgr.c          \
+       common/utils/interrupt/interrupt_sam_nvic.c        \
+       common/utils/stdio/read.c                          \
+       common/utils/stdio/write.c                         \
+       sam/boards/sam4l8_xplained_pro/init.c              \
+       sam/drivers/bpm/bpm.c                              \
+       sam/drivers/flashcalw/flashcalw.c                  \
+       sam/drivers/pdca/pdca.c                            \
+       sam/drivers/tc/tc.c                                \
+       sam/drivers/usart/usart.c                          \
+       sam/drivers/wdt/wdt_sam4l.c                        \
+       sam/utils/cmsis/sam4l/source/templates/exceptions.c \
        sam/utils/cmsis/sam4l/source/templates/gcc/startup_sam4l.c \
        sam/utils/cmsis/sam4l/source/templates/system_sam4l.c \
        sam/utils/syscalls/gcc/syscalls.c
@@ -84,31 +85,27 @@ INC_PATH = \
        ../                                                \
        common/boards                                      \
        common/services/clock                              \
-       common/services/gpio                               \
-       common/services/ioport/sam                         \
        common/services/ioport                             \
-       common/services/delay                              \
-       common/services/serial/sam_uart                    \
        common/services/serial                             \
+       common/services/serial/sam_uart                    \
+       common/services/sleepmgr                           \
        common/utils                                       \
-       common/utils/interrupt                             \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
-       sam/boards/sam4l_xplained_pro                      \
-       sam/drivers/twi                                    \
-       sam/drivers/pio                                    \
-       sam/drivers/pmc                                    \
-       sam/drivers/wdt                                    \
-       sam/drivers/uart                                   \
+       sam/boards/sam4l8_xplained_pro                     \
+       sam/drivers/bpm                                    \
+       sam/drivers/flashcalw                              \
+       sam/drivers/pdca                                   \
+       sam/drivers/tc                                     \
        sam/drivers/usart                                  \
-       sam/drivers/pwm                                    \
+       sam/drivers/wdt                                    \
        sam/utils                                          \
        sam/utils/cmsis/sam4l/include                      \
        sam/utils/cmsis/sam4l/source/templates             \
        sam/utils/header_files                             \
        sam/utils/preprocessor                             \
        thirdparty/CMSIS/Include                           \
-       thirdparty/CMSIS/Lib/GCC
+       thirdparty/CMSIS/Lib/GCC 
 
 # Additional search paths for libraries.
 LIB_PATH =  \
@@ -124,8 +121,8 @@ LINKER_SCRIPT_FLASH = sam/utils/linker_scripts/sam4l/sam4l8/gcc/flash.ld
 LINKER_SCRIPT_SRAM  = sam/utils/linker_scripts/sam4l/sam4l8/gcc/sram.ld
 
 # Path relative to top level directory pointing to a linker script.
-DEBUG_SCRIPT_FLASH = sam/boards/sam4l_xplained_pro/debug_scripts/gcc/sam4l_xplained_pro_flash.gdb
-DEBUG_SCRIPT_SRAM  = sam/boards/sam4l_xplained_pro/debug_scripts/gcc/sam4l_xplained_pro_sram.gdb
+DEBUG_SCRIPT_FLASH = sam/boards/sam4l8_xplained_pro/debug_scripts/gcc/sam4l8_xplained_pro_flash.gdb
+DEBUG_SCRIPT_SRAM  = sam/boards/sam4l8_xplained_pro/debug_scripts/gcc/sam4l8_xplained_pro_sram.gdb
 
 # Project type parameter: all, sram or flash
 PROJECT_TYPE        = flash
@@ -158,13 +155,13 @@ CFLAGS =
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
-       -D BOARD=SAM4L_XPLAINED_PRO                        \
-       -D __SAM4LS8C__                                    \
+       -D BOARD=SAM4L8_XPLAINED_PRO                       \
+       -D __SAM4LC8C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf
 
 # Extra flags to use when linking
-LDFLAGS = --specs=nano.specs -lc -u _printf_float \
+LDFLAGS = \
 
 # Pre- and post-build commands
 PREBUILD_CMD = 

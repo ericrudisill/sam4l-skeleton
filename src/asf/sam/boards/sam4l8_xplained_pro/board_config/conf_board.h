@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Serial USART service configuration.
+ * \brief SAM4L8 Xplained Pro board configuration
  *
  * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
@@ -38,24 +38,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
- *
  */
 /*
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
-#ifndef CONF_USART_SERIAL_H
-#define CONF_USART_SERIAL_H
+#ifndef CONF_BOARD_H_INCLUDED
+#define CONF_BOARD_H_INCLUDED
 
-/** USART Interface */
-#define CONF_UART              USART1
-/** Baudrate setting */
-#define CONF_UART_BAUDRATE     115200
-/** Character length setting */
-#define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
-/** Parity setting */
-#define CONF_UART_PARITY       US_MR_PAR_NO
-/** Stop bits setting */
-#define CONF_UART_STOP_BITS    US_MR_NBSTOP_1_BIT
+//#define CONF_BOARD_KEEP_WATCHDOG_AT_INIT
 
-#endif/* CONF_USART_SERIAL_H_INCLUDED */
+#endif /* CONF_BOARD_H_INCLUDED */

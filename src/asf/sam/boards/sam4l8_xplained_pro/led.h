@@ -1,9 +1,14 @@
 /**
  * \file
  *
- * \brief Serial USART service configuration.
+ * \brief SAM4L8 Xplained Pro board LEDs support package.
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * This file contains definitions and services related to the LED features of
+ * the SAM4L8 Xplained Pro board.
+ *
+ * To use this board, define BOARD=SAM4L8_XPLAINED_PRO.
+ *
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,18 +49,38 @@
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
-#ifndef CONF_USART_SERIAL_H
-#define CONF_USART_SERIAL_H
+#ifndef LED_H_INCLUDED
+#define LED_H_INCLUDED
 
-/** USART Interface */
-#define CONF_UART              USART1
-/** Baudrate setting */
-#define CONF_UART_BAUDRATE     115200
-/** Character length setting */
-#define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
-/** Parity setting */
-#define CONF_UART_PARITY       US_MR_PAR_NO
-/** Stop bits setting */
-#define CONF_UART_STOP_BITS    US_MR_NBSTOP_1_BIT
+#include "compiler.h"
+#include "ioport.h"
 
-#endif/* CONF_USART_SERIAL_H_INCLUDED */
+/**
+ * \brief Turns off the specified LEDs.
+ *
+ * \param led LED to turn off (LEDx).
+ *
+ * \note The pins of the specified LEDs are set to GPIO output mode.
+ */
+#define LED_Off(led)     ioport_set_pin_level(led, IOPORT_PIN_LEVEL_HIGH)
+
+/**
+ * \brief Turns on the specified LEDs.
+ *
+ * \param led LED to turn on (LEDx).
+ *
+ * \note The pins of the specified LEDs are set to GPIO output mode.
+ */
+#define LED_On(led)      ioport_set_pin_level(led, IOPORT_PIN_LEVEL_LOW)
+
+/**
+ * \brief Toggles the specified LEDs.
+ *
+ * \param led LED to toggle (LEDx).
+ *
+ * \note The pins of the specified LEDs are set to GPIO output mode.
+ */
+#define LED_Toggle(led)  ioport_toggle_pin_level(led)
+
+
+#endif  /* LED_H_INCLUDED */

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Serial USART service configuration.
+ * \brief Chip-specific sleep manager configuration
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,19 +43,11 @@
 /*
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
+#include <compiler.h>
+#include <sleepmgr.h>
 
-#ifndef CONF_USART_SERIAL_H
-#define CONF_USART_SERIAL_H
+#if defined(CONFIG_SLEEPMGR_ENABLE) || defined(__DOXYGEN__)
 
-/** USART Interface */
-#define CONF_UART              USART1
-/** Baudrate setting */
-#define CONF_UART_BAUDRATE     115200
-/** Character length setting */
-#define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
-/** Parity setting */
-#define CONF_UART_PARITY       US_MR_PAR_NO
-/** Stop bits setting */
-#define CONF_UART_STOP_BITS    US_MR_NBSTOP_1_BIT
+uint8_t sleepmgr_locks[SLEEPMGR_NR_OF_MODES];
 
-#endif/* CONF_USART_SERIAL_H_INCLUDED */
+#endif /* CONFIG_SLEEPMGR_ENABLE */
