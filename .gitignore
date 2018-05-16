@@ -123,3 +123,5 @@ $RECYCLE.BIN/
 *.sym
 *.o
 *.d
+
+!libarm_cortexM4l_math.a
